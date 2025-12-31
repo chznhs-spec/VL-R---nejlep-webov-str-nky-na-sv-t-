@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Náš tým | VLČR</title>
+    <link rel="icon" type="image/png" href="logo_VLCR.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Roboto:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ZÁKLADNÍ RESET A STYLY */
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        background-color: #fcfcfc;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      /* MENU (Z vašeho původního kódu) */
+      .menu {
+        top: 0;
+        position: fixed;
+        display: flex;
+        flex-direction: row;
+        background: linear-gradient(
+          90deg,
+          rgb(255, 255, 255),
+          rgba(235, 254, 255, 0.736)
+        );
+        border-bottom: 5px solid rgba(0, 66, 81, 0.056);
+        height: fit-content;
+        width: 100%;
+        z-index: 999;
+      }
+
+      .horizontal-flex {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+        text-decoration: none;
+      }
+
+      .logo {
+        width: 100px;
+        height: 100px;
+        margin: 10px;
+      }
+
+      .logo-placeholder {
+        font-family: Roboto, sans-serif;
+        font-size: xx-large;
+        font-weight: 300;
+        color: black;
+        margin: 10px;
+      }
+
+      .menu-text {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 2vw;
+        width: 100%;
+      }
+
+      .menu-item {
+        position: relative;
+        margin: 10px;
+        padding: 10px;
+        font-family: Roboto, sans-serif;
+        font-size: x-large;
+        text-decoration: none;
+        color: black;
+      }
+
+      /* OBSAH */
+      .content {
+        padding-top: 140px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      h1 {
+        font-family: Manrope, sans-serif;
+        font-size: 3rem;
+        margin-bottom: 10px;
+      }
+
+      .separator {
+        border-top: 3px solid rgba(0, 44, 111, 0.699);
+        width: 150px;
+        margin-bottom: 50px;
+      }
+
+      /* TÝMOVÁ MŘÍŽKA - 3 NA ŘÁDEK */
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Tři sloupce */
+        gap: 30px;
+        width: 90vw;
+        max-width: 1200px;
+        margin-bottom: 100px;
+      }
+
+      /* KARTA ČLENA */
+      .team-card {
+        display: flex;
+        flex-direction: column;
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+      }
+
+      .team-card:hover {
+        transform: translateY(-10px);
+      }
+
+      /* OBRÁZEK S ANIMACÍ */
+      .team-image-box {
+        width: 100%;
+        height: 250px;
+        overflow: hidden; /* Ořízne zvětšenou fotku */
+        background-color: #f0f0f0;
+        position: relative;
+      }
+
+      .team-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.9; /* Skrytý v základu */
+        transform: scale(1);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .team-card:hover .team-photo {
+        opacity: 1; /* Zviditelní se při najetí na kartu */
+        transform: scale(2); /* Zvětší se 2x */
+      }
+
+      /* TEXTY V KARTĚ */
+      .team-info {
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+
+      .team-info h2 {
+        font-family: Manrope, sans-serif;
+        font-size: 1.6rem;
+        margin: 0;
+      }
+
+      .p-elektro {
+        font-family: Manrope, sans-serif;
+        font-size: 0.9rem;
+        color: #666;
+        margin-top: 5px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .team-desc {
+        font-family: Manrope, sans-serif;
+        font-size: 1.1rem;
+        text-align: justify;
+        line-height: 1.5;
+        margin: 20px 0;
+        color: #333;
+      }
+
+      /* KONTAKTY */
+      .team-contacts {
+        margin-top: auto;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .contact-line {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: Manrope, sans-serif;
+        font-size: 1rem;
+      }
+
+      .contact-line a {
+        text-decoration: none;
+        color: rgb(0, 66, 81);
+        font-weight: 600;
+      }
+
+      .contact-line a:hover {
+        color: #4f9cff;
+      }
+
+      /* PATIČKA */
+      .botnik {
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+        background: #fff;
+        border-top: 1px solid #eee;
+        font-family: system-ui, sans-serif;
+        color: #555;
+      }
+
+      /* RESPONZIVITA */
+      @media (max-width: 1024px) {
+        .team-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 700px) {
+        .team-grid {
+          grid-template-columns: 1fr;
+        }
+        h1 {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="menu">
+      <a href="index.html" class="horizontal-flex">
+        <img src="logo_VLCR.png" alt="Logo VLČR" class="logo" />
+        <p class="logo-placeholder">Vzdělaný lid ČR</p>
+      </a>
+      <section class="menu-text">
+        <a href="projekt.html" class="menu-item">Projekty</a>
+        <a href="novinki.html" class="menu-item">Novinky</a>
+        <a href="nastym.html" class="menu-item">Náš tým</a>
+        <a href="kontakt.html" class="menu-item">Kontakt</a>
+      </section>
+    </section>
+
+    <main class="content">
+      <h1>Náš tým</h1>
+      <div class="separator"></div>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-image-box">
+            <img
+              src="https://loremflickr.com/800/600/technology"
+              alt="Technologie"
+            />
+          </div>
+          <div class="team-info">
+            <h2>Robin Josef Šafařík</h2>
+            <p class="p-elektro">Zakladatel projektu</p>
+            <p class="team-desc">
+              Nadšenec do technologií a inovací, který společně s Lukášem
+              Horákem stojí za založením VLČR.
+            </p>
+            <div class="team-contacts">
+              <div class="contact-line">
+                <span>📧</span>
+                <a href="mailto:novak@vlcr.cz">robinjos.vlcr@gmail.com</a>
+              </div>
+              <div class="contact-line">
+                <span>📞</span> <a href="tel:+420123456789">+420 775 199 954</a>
+              </div>
+              <div class="contact-line">
+                <span>🔗</span> <a href="https://robinsafarik.cz/" target="_blank">robinsafarik.cz</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-image-box">
+            <img src="blba-fotka.jpeg" alt="Petr Svoboda" class="team-photo" />
+          </div>
+          <div class="team-info">
+            <h2>Lukáš Horák</h2>
+            <p class="p-elektro">Elektrotechnika, Fyzika, jaderná Energetika</p>
+            <p class="team-desc">
+              Horák se dlouhodobě věnuje fyzice se zaměřením na jadernou energetiku a fungování jaderných elektráren.
+            </p>
+            <div class="team-contacts">
+              <div class="contact-line">
+                <span>📧</span>
+                <a href="mailto:l.horak.vlcr@gmail.com">l.horak.vlcr@gmail.com</a>
+              </div>
+              <div class="contact-line">
+                <span>📞</span> <a href="tel:+420732120118">+420 721 120 118</a>
+              </div>
+              <div class="contact-line">
+                <span>🔗</span> <a href="https://www.linkedin.com/in/luk%C3%A1%C5%A1-hor%C3%A1k-838529361/" target="_blank">LinkedIn</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-image-box">
+            <img src="ondra.jpeg" alt="Ondřej Kučera" class="team-photo" />
+          </div>
+          <div class="team-info">
+            <h2>Ondřej Pospíšil</h2>
+            <p class="p-elektro">IT specialista</p>
+            <p class="team-desc">
+              Hlavní matematik, chemik a teoretický fyzik, zapálený do vědy, inovací a otevřený novým nápadům.
+            </p>
+            <div class="team-contacts">
+              <div class="contact-line">
+                <span>📧</span>
+                <a href="mailto:ONDRA">ONDRA</a>
+              </div>
+              <div class="contact-line">
+                <span>📞</span> <a href="tel:+420ONDRA">ONDRA</a>
+              </div>
+              <div class="contact-line">
+                <span>🔗</span> <a href="#" target="_blank">Osobní web</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card">
+          <div class="team-image-box">
+            <img src="adam.jpeg" alt="Adam Novák" class="team-photo" />
+          </div>
+          <div class="team-info">
+            <h2>Adam Novák</h2>
+            <p class="p-elektro">Marketing a PR</p>
+            <p class="team-desc">
+              Adam má na starosti šíření naší vize mezi lidi a správu sociálních
+              sítí VLČR.
+            </p>
+            <div class="team-contacts">
+              <div class="contact-line">
+                <span>📧</span> <a href="mailto:ADAM">ADAM</a>
+              </div>
+              <div class="contact-line">
+                <span>📞</span> <a href="tel:+ADAM">+ADAM</a>
+              </div>
+              <div class="contact-line">
+                <span>🔗</span> <a href="#" target="_blank">Osobní web</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-image-box">
+            <img src="haubert.jpeg" alt="Jakub Haubert" class="team-photo" />
+          </div>
+          <div class="team-info">
+            <h2>Jakub Haubert</h2>
+            <p class="p-elektro">Marketing a PR</p>
+            <p class="team-desc">
+              Adam má na starosti šíření naší vize mezi lidi a správu sociálních
+              sítí VLČR.
+            </p>
+            <div class="team-contacts">
+              <div class="contact-line">
+                <span>📧</span> <a href="mailto:HAUBI">HAUBI</a>
+              </div>
+              <div class="contact-line">
+                <span>📞</span> <a href="tel:+420HAUBI">+420HAUBI</a>
+              </div>
+              <div class="contact-line">
+                <span>🔗</span> <a href="#" target="_blank">Osobní web</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-image-box">
+            <img src="adam.jpeg" alt="Adam Černý" class="team-photo" />
+          </div>
+          <div class="team-info">
+            <h2>Bc. Adam Černý</h2>
+            <p class="p-elektro">Marketing a PR</p>
+            <p class="team-desc">
+              Adam má na starosti šíření naší vize mezi lidi a správu sociálních
+              sítí VLČR.
+            </p>
+            <div class="team-contacts">
+              <div class="contact-line">
+                <span>📧</span> <a href="mailto:cerny@vlcr.cz">cerny@vlcr.cz</a>
+              </div>
+              <div class="contact-line">
+                <span>📞</span> <a href="tel:+420555666777">+420 555 666 777</a>
+              </div>
+              <div class="contact-line">
+                <span>🔗</span> <a href="#" target="_blank">Osobní web</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-image-box">
+            <img src="adam.jpeg" alt="Adam Černý" class="team-photo" />
+          </div>
+          <div class="team-info">
+            <h2>Bc. Adam Černý</h2>
+            <p class="p-elektro">Marketing a PR</p>
+            <p class="team-desc">
+              Adam má na starosti šíření naší vize mezi lidi a správu sociálních
+              sítí VLČR.
+            </p>
+            <div class="team-contacts">
+              <div class="contact-line">
+                <span>📧</span> <a href="mailto:cerny@vlcr.cz">cerny@vlcr.cz</a>
+              </div>
+              <div class="contact-line">
+                <span>📞</span> <a href="tel:+420555666777">+420 555 666 777</a>
+              </div>
+              <div class="contact-line">
+                <span>🔗</span> <a href="#" target="_blank">Osobní web</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="team-image-box">
+            <img src="adam.jpeg" alt="Adam Černý" class="team-photo" />
+          </div>
+          <div class="team-info">
+            <h2>Bc. Adam Černý</h2>
+            <p class="p-elektro">Marketing a PR</p>
+            <p class="team-desc">
+              Adam má na starosti šíření naší vize mezi lidi a správu sociálních
+              sítí VLČR.
+            </p>
+            <div class="team-contacts">
+              <div class="contact-line">
+                <span>📧</span> <a href="mailto:cerny@vlcr.cz">cerny@vlcr.cz</a>
+              </div>
+              <div class="contact-line">
+                <span>📞</span> <a href="tel:+420555666777">+420 555 666 777</a>
+              </div>
+              <div class="contact-line">
+                <span>🔗</span> <a href="#" target="_blank">Osobní web</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="botnik">© 2025 VLČR — Vzdělaný lid České republiky</footer>
+  </body>
+</html>
