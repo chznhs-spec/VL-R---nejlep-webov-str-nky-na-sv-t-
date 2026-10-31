@@ -698,3 +698,12 @@ textarea {
   overflow: hidden; /* DŮLEŽITÉ: ořízne zvětšený obrázek, aby nezasahoval do textu */
   background: #f9f9f9; /* Volitelné: lehké pozadí, když tam obrázek není */
 }
+/* Efekt pro zvětšení log partnerů při najetí myší */
+.partner-hover {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.partner-hover:hover {
+  transform: scale(1.12);
+}
